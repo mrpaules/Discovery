@@ -1,0 +1,5 @@
+/var/log/cron { missingok sharedscripts postrotate /usr/bin/systemctl -s HUP kill rsyslog.service > /dev/null 2>&1 || true endscript } 
+/var/log/maillog { missingok sharedscripts postrotate /usr/bin/systemctl -s HUP kill rsyslog.service > /dev/null 2>&1 || true endscript } 
+/var/log/messages { missingok sharedscripts postrotate /usr/bin/systemctl -s HUP kill rsyslog.service > /dev/null 2>&1 || true endscript } 
+/var/log/secure { missingok sharedscripts postrotate /usr/bin/systemctl -s HUP kill rsyslog.service > /dev/null 2>&1 || true endscript } 
+/var/log/spooler { missingok sharedscripts postrotate /usr/bin/systemctl -s HUP kill rsyslog.service > /dev/null 2>&1 || true endscript }

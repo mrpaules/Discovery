@@ -1,0 +1,11 @@
+---
+# handlers file for log_rotation
+- name: Restart rsyslog
+  systemd:
+    name: rsyslog
+    state: restarted
+
+- name: Reload systemd
+  systemd:
+    daemon_reload: yes
+...

@@ -1,0 +1,38 @@
+---
+# tasks file for log_rotation
+- name: Create logrotate configuration for dnf 
+  template:
+    src: dnf_logrotate.j2 
+    dest: /etc/logrotate.d/dnf_hawkey 
+    mode: '0644' 
+  notify: 
+    - Restart rsyslog 
+     
+- name: Create logrotate configuration for rsyslog 
+  template: 
+    src: rsyslog_logrotate.j2 
+    dest: /etc/logrotate.d/rsyslog 
+    mode: '0644' 
+  notify: 
+    - Restart rsyslog 
+#       
+#- name: Ensure logrotate is installed 
+#  yum: 
+#    name: logrotate 
+#    state: present 
+    
+- name: Ensure logrotate is running daily 
+  copy: 
+    src: /usr/lib/systemd/system/logrotate.service 
+    dest: /etc/systemd/system/logrotate.service 
+    mode: '0644' 
+    remote_src: yes
+  notify: 
+    - Reload systemd 
+       
+- name: Ensure logrotate.timer is enabled and started 
+  systemd: 
+    name: logrotate.timer 
+    enabled: yes 
+    state: started 
+... 
